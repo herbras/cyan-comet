@@ -1,0 +1,50 @@
+---
+// Learn about using Astro layouts:
+// https://docs.astro.build/en/core-concepts/layouts/
+// Component Imports
+import MainHead from "../components/MainHead.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="id">
+  <head>
+    <MainHead title={title} description={description} />
+  </head>
+  <body>
+
+
+    <div class="stack backgrounds overflow-hidden">
+      <Nav />
+      <slot />
+      <Foot />
+    </div>
+
+    <script>
+      // Add “loaded” class once the document has completely loaded.
+      addEventListener("load", () =>
+        document.documentElement.classList.add("loaded")
+      );
+    </script>
+    <script>
+      import cursor from "alpinejs-cursor";
+
+      import intersect from "@alpinejs/intersect";
+      import Alpine from "alpinejs";
+      Alpine.plugin(intersect);
+      Alpine.plugin(cursor);
+
+      window.Alpine = Alpine;
+      setTimeout(() => {
+        Alpine.start();
+      }, 0);
+    </script>
+  </body>
+</html>
